@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ruchil's Global Opportunity Board · Product / Ops / Founding</title>
+<style>
+  :root{
+    --bg:#0b0f1a; --panel:#121829; --panel2:#172036; --line:#243150;
+    --text:#e8edf7; --muted:#94a3c4; --accent:#5b8cff; --accent2:#7c5bff;
+    --green:#34d399; --amber:#fbbf24; --red:#f87171; --chip:#1d2742;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 10% -10%,#16213f 0%,transparent 60%),
+               radial-gradient(1000px 500px at 110% 0%,#1c1340 0%,transparent 55%),
+               var(--bg);
+    color:var(--text); line-height:1.45; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{
+    padding:28px 28px 14px; max-width:1320px; margin:0 auto;
+  }
+  .title{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  h1{font-size:24px; margin:0; letter-spacing:.2px}
+  .sub{color:var(--muted); font-size:14px; margin-top:6px; max-width:860px}
+  .pill{font-size:12px; padding:4px 10px; border-radius:999px; background:var(--chip); color:var(--muted); border:1px solid var(--line)}
+  .stats{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .stat{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:10px 14px; min-width:120px}
+  .stat b{display:block; font-size:20px}
+  .stat span{font-size:12px; color:var(--muted)}
+
+  .controls{
+    position:sticky; top:0; z-index:20; backdrop-filter:blur(8px);
+    background:rgba(11,15,26,.78); border-bottom:1px solid var(--line);
+    padding:14px 28px;
+  }
+  .controls-inner{max-width:1320px; margin:0 auto; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+  input[type=search], select{
+    background:var(--panel2); color:var(--text); border:1px solid var(--line);
+    border-radius:10px; padding:10px 12px; font-size:14px; outline:none;
+  }
+  input[type=search]{min-width:260px; flex:1}
+  input[type=search]:focus, select:focus{border-color:var(--accent)}
+  .seg{display:flex; gap:6px; flex-wrap:wrap}
+  .chip{
+    cursor:pointer; user-select:none; font-size:13px; padding:8px 12px; border-radius:999px;
+    background:var(--chip); border:1px solid var(--line); color:var(--muted);
+  }
+  .chip.active{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; border-color:transparent}
+  .count{margin-left:auto; color:var(--muted); font-size:13px}
+
+  main{max-width:1320px; margin:0 auto; padding:18px 28px 60px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:16px}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px; transition:transform .12s ease, border-color .12s;
+  }
+  .card:hover{transform:translateY(-2px); border-color:#33457a}
+  .card .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+  .co{font-size:17px; font-weight:700}
+  .role{color:var(--muted); font-size:13.5px}
+  .badges{display:flex; gap:6px; flex-wrap:wrap}
+  .badge{font-size:11px; padding:3px 9px; border-radius:999px; border:1px solid var(--line); background:var(--chip); color:var(--muted)}
+  .badge.product{color:#bcd0ff; border-color:#2c3e73}
+  .badge.ops{color:#ffe3a8; border-color:#5a481f}
+  .badge.founding{color:#d8c2ff; border-color:#473066}
+  .visa{font-size:12px; font-weight:600}
+  .visa.sponsors{color:var(--green)}
+  .visa.likely{color:var(--amber)}
+  .visa.check{color:var(--muted)}
+  .visa.eu{color:var(--red)}
+  .meta{display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:var(--muted)}
+  .meta b{color:var(--text); font-weight:600}
+  .contact{
+    background:var(--panel); border:1px dashed var(--line); border-radius:10px; padding:10px; font-size:12.5px;
+  }
+  .contact .lab{color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-size:10px}
+  .actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto}
+  .btn{
+    cursor:pointer; font-size:12.5px; padding:8px 11px; border-radius:9px; border:1px solid var(--line);
+    background:var(--chip); color:var(--text); display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2)); border-color:transparent; color:#fff}
+  .btn.li{background:#0a66c2; border-color:transparent; color:#fff}
+  .empty{text-align:center; color:var(--muted); padding:60px 0}
+
+  /* modal */
+  .overlay{position:fixed; inset:0; background:rgba(3,6,15,.7); display:none; align-items:center; justify-content:center; z-index:50; padding:20px}
+  .overlay.open{display:flex}
+  .modal{background:var(--panel2); border:1px solid var(--line); border-radius:16px; width:min(680px,100%); max-height:88vh; overflow:auto; box-shadow:var(--shadow)}
+  .modal h3{margin:0; padding:18px 20px; border-bottom:1px solid var(--line); font-size:16px}
+  .modal .body{padding:18px 20px}
+  textarea{width:100%; min-height:300px; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:10px; padding:12px; font-size:13px; font-family:inherit; resize:vertical}
+  .modal .foot{display:flex; gap:8px; justify-content:flex-end; padding:0 20px 18px}
+  .tip{font-size:12px; color:var(--muted); margin:8px 0 0}
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--green); color:#04140d; font-weight:600; padding:10px 16px; border-radius:10px; opacity:0; transition:opacity .2s; z-index:60}
+  .toast.show{opacity:1}
+  footer{max-width:1320px; margin:0 auto; padding:0 28px 40px; color:var(--muted); font-size:12px}
+  code{background:var(--chip); padding:1px 6px; border-radius:6px}
+
+  /* tabs */
+  .tabs{max-width:1320px; margin:0 auto; padding:6px 28px 0}
+  .tabs-inner{display:flex; gap:8px; border-bottom:1px solid var(--line)}
+  .tab{cursor:pointer; background:transparent; border:none; color:var(--muted); font-size:14px; font-weight:600;
+       padding:12px 14px; border-bottom:2px solid transparent; font-family:inherit}
+  .tab:hover{color:var(--text)}
+  .tab.active{color:#fff; border-bottom-color:var(--accent)}
+
+  /* help section */
+  .help-wrap{max-width:1320px; margin:0 auto; padding:20px 28px 60px}
+  .help-intro{color:var(--muted); font-size:14px; max-width:920px; margin-bottom:8px}
+  .safety{background:rgba(248,113,113,.08); border:1px solid #5a2330; color:#ffd9dd; border-radius:12px; padding:12px 14px; font-size:13px; margin:14px 0 22px}
+  .cat-h{font-size:16px; margin:26px 0 12px; display:flex; align-items:center; gap:10px}
+  .cat-h .line{flex:1; height:1px; background:var(--line)}
+  .help-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:16px}
+  .hcard{background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:9px; box-shadow:var(--shadow)}
+  .hcard:hover{border-color:#33457a}
+  .hcard .hn{font-size:16px; font-weight:700}
+  .hcard .ho{font-size:12.5px; color:var(--accent)}
+  .hcard .hb{font-size:13px; color:var(--muted)}
+  .htags{display:flex; gap:6px; flex-wrap:wrap}
+  .pay{font-size:11px; padding:3px 9px; border-radius:999px; border:1px solid var(--line)}
+  .pay.free{color:var(--green); border-color:#1f5a3f}
+  .pay.paid{color:var(--amber); border-color:#5a481f}
+  .hlinks{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto; padding-top:4px}
+
+  .refresh-pill{font-size:12px; padding:4px 10px; border-radius:999px; background:#132a1f; color:var(--green); border:1px solid #1f5a3f}
+  .loading{padding:60px 28px; text-align:center; color:var(--muted); font-size:15px}
+  .loading.err{color:var(--red)}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Global Opportunity Board</h1>
+    <span class="pill">Built for Ruchil · PM II @ Uber</span>
+    <span class="pill">Product · Ops · Founding</span>
+    <span class="refresh-pill" id="lastRefreshed">Refreshing…</span>
+  </div>
+  <p class="sub">
+    Curated companies hiring outside India that sponsor visas / relocate talent — focused on
+    <b>London</b> (your top pick), scenic Europe, the US, Dubai, and remote founding roles.
+    Every card has a one-click link to find that company's <b>current</b> product/talent recruiter on LinkedIn,
+    plus a tailored outreach note. Recruiter names rotate often, so the LinkedIn link is the reliable source of truth.
+  </p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" id="tabJobs" onclick="switchView('jobs')">📋 Job Board</button>
+    <button class="tab" id="tabHelp" onclick="switchView('help')">🤝 People &amp; Services Who Can Help</button>
+  </div>
+</div>
+
+<div id="viewJobs">
+<div class="controls">
+  <div class="controls-inner">
+    <input id="search" type="search" placeholder="Search company, role, city, keyword…" />
+    <div class="seg" id="typeSeg"></div>
+    <select id="region"></select>
+    <select id="visa"></select>
+    <select id="sort">
+      <option value="region">Sort: Region</option>
+      <option value="company">Sort: Company A–Z</option>
+      <option value="type">Sort: Role type</option>
+      <option value="visa">Sort: Visa support</option>
+    </select>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main>
+  <div class="loading" id="loading">Loading latest opportunities…</div>
+  <div class="grid" id="grid" style="display:none"></div>
+  <div class="empty" id="empty" style="display:none">No matches — try clearing a filter.</div>
+</main>
+</div>
+
+<section id="viewHelp" style="display:none">
+  <div class="help-wrap" id="helpWrap"></div>
+</section>
+
+<footer>
+  <p><b>How to use:</b> Filter to your target region/role → open the company's careers page → click <b>Find recruiter</b> to see the live talent/product recruiter on LinkedIn → click <b>Outreach note</b> to copy a tailored message. Track replies in the included <code>jobs.csv</code> (import to Google Sheets) and read <code>outreach-playbook.md</code> for the full reach-out strategy.</p>
+  <p>Data compiled Jun 2026 from public careers pages & job boards. Verify role availability and sponsorship on the live listing before applying. Salary figures are public estimates where shown.</p>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Outreach note</h3>
+    <div class="body">
+      <textarea id="msg"></textarea>
+      <p class="tip">Tip: personalize the bracketed bits before sending. Keep it under 120 words for a LinkedIn note (300-char connection notes need the short version below the line).</p>
+    </div>
+    <div class="foot">
+      <button class="btn" onclick="closeModal()">Close</button>
+      <button class="btn primary" onclick="copyMsg()">Copy to clipboard</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+// ---- DATA (loaded from /data/*.json, refreshed daily) --------------------
+let JOBS = [];
+let HELPERS = [];
+let META = {};
+
+async function loadData(){
+  const cacheBust = new Date().toISOString().slice(0,10);
+  const [metaRes, jobsRes, helpersRes] = await Promise.all([
+    fetch(`/data/meta.json?t=${cacheBust}`),
+    fetch(`/data/jobs.json?t=${cacheBust}`),
+    fetch(`/data/helpers.json?t=${cacheBust}`)
+  ]);
+  if(!metaRes.ok || !jobsRes.ok || !helpersRes.ok) throw new Error("Failed to load data files");
+  META = await metaRes.json();
+  JOBS = await jobsRes.json();
+  HELPERS = await helpersRes.json();
+  const el = document.getElementById("lastRefreshed");
+  if(META.lastRefreshed){
+    const d = new Date(META.lastRefreshed);
+    el.textContent = "🔄 Last refreshed: "+d.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
+  } else {
+    el.textContent = "🔄 Data loaded";
+  }
+}
+
+// ---- STATE & RENDER -----------------------------------------------------
+const state = { q:"", type:"All", region:"All", visa:"All", sort:"region" };
+const VISA_LABEL = {sponsors:"✅ Sponsors visa", likely:"🟡 Likely / check", check:"🔎 Confirm w/ company", eu:"⛔ EU permit needed"};
+const VISA_CLASS = {sponsors:"sponsors", likely:"likely", check:"check", eu:"eu"};
+const REGION_ORDER = {London:0, Europe:1, US:2, Dubai:3, Remote:4};
+const NAME = "Ruchil Sharma";
+const HEADLINE = "Product Manager II at Uber";
+
+function cleanCo(co){ return co.replace(/\s*\(.*?\)\s*/g," ").replace(/\s*\/.*/,"").trim(); }
+function firstCity(city){ return (city.split(/[,/]/)[0]||"").trim(); }
+
+// Google-restricted-to-LinkedIn search: reliably surfaces REAL, current recruiter
+// profiles you can open and connect with (no login wall, unlike LinkedIn's own search).
+function recruiterURL(j){
+  const co = cleanCo(j.co), city = firstCity(j.city);
+  const who = j.type==="Ops"
+      ? '(recruiter OR "talent acquisition" OR "people operations" OR "talent partner")'
+      : j.type==="Founding"
+      ? '(founder OR "co-founder" OR "head of talent" OR recruiter OR "talent acquisition")'
+      : '(recruiter OR "talent acquisition" OR "talent partner")';
+  const focus = j.type==="Founding" ? "" : "product";
+  const q = `site:linkedin.com/in "${co}" ${who} ${focus} ${city}`.replace(/\s+/g," ").trim();
+  return "https://www.google.com/search?q="+encodeURIComponent(q);
+}
+
+// Opens the live LinkedIn job search for this company/role. Click a posting and
+// LinkedIn shows "Meet the hiring team" = the recruiter actively working THIS role.
+function liJobsURL(j){
+  const co = cleanCo(j.co), city = firstCity(j.city);
+  const kw = co+" "+(j.type==="Ops" ? "operations" : "product manager");
+  return "https://www.linkedin.com/jobs/search/?keywords="+encodeURIComponent(kw)
+       + "&location="+encodeURIComponent(city||"");
+}
+
+function outreachFor(j){
+  const company = j.co.replace(/\s*\(.*?\)\s*/g," ").trim();
+  return `Hi [First name],
+
+I'm ${NAME}, a ${HEADLINE}. I came across the ${j.role} role at ${company}${j.city?` (${j.city})`:""} and it's exactly the kind of problem space I want to go deeper on.
+
+At Uber I [drove X outcome — e.g. shipped a feature / ran an ops program that moved metric Y by Z%], working across product, ops and data on a high-scale marketplace. ${company}'s work on [their product/mission] really resonates with that.
+
+I'm actively exploring opportunities outside India and ${company} is at the top of my list. Would you be open to a quick chat, or could you point me to the right person on the hiring team?
+
+Thanks so much,
+${NAME}
+[LinkedIn URL] · [email]
+
+— — — short version (LinkedIn connect note, <300 chars) — —
+Hi [First name] — ${HEADLINE} here. Keen on the ${j.role} role at ${company}; I've shipped high-scale marketplace product/ops at Uber and am exploring roles abroad. Would love to connect and learn about your hiring plans. Thanks! – ${NAME}`;
+}
+
+function render(){
+  const grid = document.getElementById("grid");
+  let rows = JOBS.filter(j=>{
+    if(state.type!=="All" && j.type!==state.type) return false;
+    if(state.region!=="All" && j.region!==state.region) return false;
+    if(state.visa!=="All" && j.visa!==state.visa) return false;
+    if(state.q){
+      const hay = (j.co+" "+j.role+" "+j.city+" "+j.note+" "+j.type).toLowerCase();
+      if(!hay.includes(state.q.toLowerCase())) return false;
+    }
+    return true;
+  });
+  rows.sort((a,b)=>{
+    if(state.sort==="company") return a.co.localeCompare(b.co);
+    if(state.sort==="type") return a.type.localeCompare(b.type)||a.co.localeCompare(b.co);
+    if(state.sort==="visa"){const o={sponsors:0,likely:1,check:2,eu:3};return o[a.visa]-o[b.visa]||a.co.localeCompare(b.co);}
+    return (REGION_ORDER[a.region]-REGION_ORDER[b.region])||a.co.localeCompare(b.co);
+  });
+
+  document.getElementById("count").textContent = rows.length+" of "+JOBS.length+" roles";
+  document.getElementById("empty").style.display = rows.length? "none":"block";
+
+  grid.innerHTML = rows.map((j,i)=>{
+    const idx = JOBS.indexOf(j);
+    return `<div class="card">
+      <div class="top">
+        <div>
+          <div class="co">${j.co}</div>
+          <div class="role">${j.role}</div>
+        </div>
+        <span class="visa ${VISA_CLASS[j.visa]}">${VISA_LABEL[j.visa]}</span>
+      </div>
+      <div class="badges">
+        <span class="badge ${j.type.toLowerCase()}">${j.type}</span>
+        <span class="badge">${j.region}</span>
+        <span class="badge">📍 ${j.city}</span>
+        ${j.salary?`<span class="badge">💰 ${j.salary}</span>`:""}
+        ${j.linkStatus==="stale"?`<span class="badge" style="color:var(--red)">⚠️ Link may be stale</span>`:""}
+        ${j.autoDiscovered?`<span class="badge" style="color:var(--green)">✨ New today</span>`:""}
+      </div>
+      <div class="role" style="font-size:12.5px">${j.note}</div>
+      ${j.contact?`<div class="contact"><span class="lab">Known contact</span><br/>${j.contact}</div>`:""}
+      <div class="actions">
+        <a class="btn primary" href="${j.apply}" target="_blank" rel="noopener">View role ↗</a>
+        ${j.careers!==j.apply?`<a class="btn" href="${j.careers}" target="_blank" rel="noopener">Careers ↗</a>`:""}
+        <a class="btn li" href="${recruiterURL(j)}" target="_blank" rel="noopener" title="Opens LinkedIn recruiter/talent profiles at this company you can connect with">in Find recruiter ↗</a>
+        <a class="btn" href="${liJobsURL(j)}" target="_blank" rel="noopener" title="Opens the live posting → 'Meet the hiring team' shows the recruiter on this exact role">👤 Hiring team ↗</a>
+        <button class="btn" onclick="openModal(${idx})">✉️ Outreach note</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function buildControls(){
+  // stats
+  const byRegion = {};
+  JOBS.forEach(j=>byRegion[j.region]=(byRegion[j.region]||0)+1);
+  const sponsorN = JOBS.filter(j=>j.visa==="sponsors").length;
+  document.getElementById("stats").innerHTML =
+    `<div class="stat"><b>${JOBS.length}</b><span>Total roles</span></div>
+     <div class="stat"><b>${sponsorN}</b><span>Confirmed visa sponsors</span></div>
+     <div class="stat"><b>${byRegion.London||0}</b><span>London</span></div>
+     <div class="stat"><b>${byRegion.Europe||0}</b><span>Scenic Europe</span></div>
+     <div class="stat"><b>${byRegion.US||0}</b><span>United States</span></div>
+     <div class="stat"><b>${byRegion.Dubai||0}</b><span>Dubai</span></div>
+     <div class="stat"><b>${byRegion.Remote||0}</b><span>Remote founding</span></div>`;
+
+  // type segmented
+  const seg = document.getElementById("typeSeg");
+  ["All","Product","Ops","Founding"].forEach(t=>{
+    const el=document.createElement("div");
+    el.className="chip"+(state.type===t?" active":"");
+    el.textContent=t; el.onclick=()=>{state.type=t; [...seg.children].forEach(c=>c.classList.remove("active")); el.classList.add("active"); render();};
+    seg.appendChild(el);
+  });
+
+  const regionSel=document.getElementById("region");
+  regionSel.innerHTML=`<option value="All">All regions</option>`+
+    ["London","Europe","US","Dubai","Remote"].map(r=>`<option value="${r}">${r==="Europe"?"Scenic Europe":r}</option>`).join("");
+  regionSel.onchange=e=>{state.region=e.target.value; render();};
+
+  const visaSel=document.getElementById("visa");
+  visaSel.innerHTML=`<option value="All">All visa statuses</option>
+    <option value="sponsors">✅ Sponsors visa</option>
+    <option value="likely">🟡 Likely / check</option>
+    <option value="check">🔎 Confirm</option>
+    <option value="eu">⛔ EU permit needed</option>`;
+  visaSel.onchange=e=>{state.visa=e.target.value; render();};
+
+  document.getElementById("sort").onchange=e=>{state.sort=e.target.value; render();};
+  document.getElementById("search").oninput=e=>{state.q=e.target.value; render();};
+}
+
+// modal
+let current=null;
+function openModal(idx){
+  current=idx; const j=JOBS[idx];
+  document.getElementById("modalTitle").textContent="Outreach note · "+j.co;
+  document.getElementById("msg").value=outreachFor(j);
+  document.getElementById("overlay").classList.add("open");
+}
+function closeModal(){document.getElementById("overlay").classList.remove("open");}
+function copyMsg(){
+  const t=document.getElementById("msg"); t.select();
+  navigator.clipboard.writeText(t.value).then(showToast).catch(()=>{document.execCommand("copy");showToast();});
+}
+function showToast(){const e=document.getElementById("toast");e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1400);}
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+function renderHelp(){
+  const wrap=document.getElementById("helpWrap");
+  const cats=[...new Set(HELPERS.map(h=>h.cat))];
+  let html=`<p class="help-intro">Real people, communities and services that help talent land roles abroad — curators who post visa/relocation jobs, PM-specific boards, paid coaches who do India→abroad placements, and agencies that handle both hiring <i>and</i> the visa/relocation.${META.lastRefreshed?` Data refreshed ${new Date(META.lastRefreshed).toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"})}.`:""}</p>
+  <div class="safety">⚠️ <b>Stay safe:</b> A legitimate <i>employer</i> never charges you for a visa or sponsorship — those costs are the company's. It's fine to pay a <i>coach/service</i> for help with your search, CV or interviews, but vet their track record, ask for verifiable references, and avoid anyone "guaranteeing" a visa or job.</div>`;
+  cats.forEach(c=>{
+    html+=`<div class="cat-h">${c}<span class="line"></span></div><div class="help-grid">`;
+    HELPERS.filter(h=>h.cat===c).forEach(h=>{
+      html+=`<div class="hcard">
+        <div class="hn">${h.name}</div>
+        <div class="ho">${h.org}</div>
+        <div class="htags">
+          <span class="pay ${h.pay}">${h.pay==="paid"?"💳 Paid service":"🆓 Free / employer-funded"}</span>
+          ${h.tags.map(t=>`<span class="badge">${t}</span>`).join("")}
+        </div>
+        <div class="hb">${h.blurb}</div>
+        <div class="hlinks">${h.links.map(x=>`<a class="btn primary" href="${x.u}" target="_blank" rel="noopener">${x.l} ↗</a>`).join("")}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  wrap.innerHTML=html;
+}
+
+function switchView(v){
+  const jobs=v==="jobs";
+  document.getElementById("viewJobs").style.display=jobs?"block":"none";
+  document.getElementById("viewHelp").style.display=jobs?"none":"block";
+  document.getElementById("tabJobs").classList.toggle("active",jobs);
+  document.getElementById("tabHelp").classList.toggle("active",!jobs);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function init(){
+  const loading = document.getElementById("loading");
+  const grid = document.getElementById("grid");
+  try {
+    await loadData();
+    loading.style.display = "none";
+    grid.style.display = "";
+    buildControls();
+    render();
+    renderHelp();
+  } catch (e) {
+    loading.className = "loading err";
+    loading.textContent = "Could not load job data. If viewing locally, use a local server (or redeploy to Netlify with the data/ folder). Error: " + e.message;
+    console.error(e);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

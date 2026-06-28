@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+  command = "echo 'Static site — no build step'"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"

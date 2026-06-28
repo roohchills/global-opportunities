@@ -1,0 +1,353 @@
+[
+  {
+    "cat": "Relocation job boards & curators",
+    "name": "Andrew Stetsenko",
+    "org": "Founder, Relocate.me · 'The Global Move' newsletter",
+    "pay": "paid",
+    "blurb": "Has helped thousands relocate since 2012. Each week hand-curates ~100 verified tech jobs with visa/relocation support and personally contacts recruiters to confirm sponsorship. Paid tier = private 1,000+ job board, resume/LinkedIn reviews, live Q&As with recruiters.",
+    "tags": [
+      "Visa/relocation",
+      "Tech-wide",
+      "Newsletter",
+      "Coaching"
+    ],
+    "links": [
+      {
+        "l": "LinkedIn",
+        "u": "https://www.linkedin.com/in/andrewstetsenko/"
+      },
+      {
+        "l": "Relocate.me",
+        "u": "https://relocate.me/"
+      },
+      {
+        "l": "Newsletter",
+        "u": "https://relocateme.substack.com/"
+      },
+      {
+        "l": "Free GitHub guide",
+        "u": "https://github.com/AndrewStetsenko/tech-jobs-with-relocation"
+      }
+    ]
+  },
+  {
+    "cat": "Relocation job boards & curators",
+    "name": "Arbeitnow",
+    "org": "Visa-sponsorship job board (Germany/EU)",
+    "pay": "free",
+    "blurb": "Specialized board for English-speaking roles in Germany/EU with explicit visa sponsorship, relocation and salary info. Strong for India→Germany moves. Filter directly for 'Visa Sponsorship'.",
+    "tags": [
+      "Germany/EU",
+      "Visa filter",
+      "Free"
+    ],
+    "links": [
+      {
+        "l": "Visa-sponsor jobs",
+        "u": "https://www.arbeitnow.com/visa-sponsorship-jobs"
+      }
+    ]
+  },
+  {
+    "cat": "Relocation job boards & curators",
+    "name": "The Stack Jobs",
+    "org": "EU visa-sponsorship tech board",
+    "pay": "free",
+    "blurb": "Lists tech companies across London, Berlin, Amsterdam, Dublin actively offering visa sponsorship + relocation. Filter by location, remote and sponsorship status.",
+    "tags": [
+      "Europe",
+      "Visa filter",
+      "Free"
+    ],
+    "links": [
+      {
+        "l": "Companies hiring",
+        "u": "https://jobs.trythestack.co/companies"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Lenny Rachitsky",
+    "org": "Lenny's Newsletter + Job Board",
+    "pay": "free",
+    "blurb": "The most influential PM newsletter. His job board specializes in product-building roles (PM, Growth, Eng, Design, Data) at top startups — higher signal than LinkedIn. Great for warm, high-quality roles.",
+    "tags": [
+      "PM/Growth",
+      "Top startups",
+      "Job board"
+    ],
+    "links": [
+      {
+        "l": "Job board",
+        "u": "https://www.lennysnewsletter.com/jobs"
+      },
+      {
+        "l": "Newsletter",
+        "u": "https://www.lennysnewsletter.com/"
+      },
+      {
+        "l": "X / Twitter",
+        "u": "https://twitter.com/lennysan"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Exponent",
+    "org": "Curated PM jobs + interview prep",
+    "pay": "paid",
+    "blurb": "Weekly curated PM/eng roles from top tech companies, plus the best-known PM interview prep (system design, behavioral). Useful both to find roles and to prep — which is your stated goal.",
+    "tags": [
+      "PM",
+      "Interview prep",
+      "Curated"
+    ],
+    "links": [
+      {
+        "l": "Jobs",
+        "u": "https://www.tryexponent.com/jobs"
+      },
+      {
+        "l": "Interview prep",
+        "u": "https://www.tryexponent.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Remote PM Jobs",
+    "org": "Fully-remote PM job board",
+    "pay": "free",
+    "blurb": "Pulls remote PM roles straight from company ATS (Greenhouse/Lever/Ashby), synced daily, no ghost jobs. Has dedicated 'Europe' and 'International remote' filters — handy for remote founding roles.",
+    "tags": [
+      "Remote",
+      "Europe filter",
+      "Daily sync"
+    ],
+    "links": [
+      {
+        "l": "Browse",
+        "u": "https://remotepmjobs.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Ken Norton",
+    "org": "'Bring the Donuts' — PM newsletter + jobs",
+    "pay": "free",
+    "blurb": "Ex-Google Ventures PM partner. Weekly digest of PM advice + exclusive startup jobs you won't find elsewhere. Strong senior/leadership PM roles.",
+    "tags": [
+      "PM",
+      "Senior roles",
+      "Newsletter"
+    ],
+    "links": [
+      {
+        "l": "Site & newsletter",
+        "u": "https://www.bringthedonuts.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Mind the Product",
+    "org": "Global product community + job board",
+    "pay": "free",
+    "blurb": "Large international PM community with a job board, meetups and conferences worldwide — excellent for networking your way into European product roles.",
+    "tags": [
+      "PM",
+      "Community",
+      "Events"
+    ],
+    "links": [
+      {
+        "l": "Community",
+        "u": "https://www.mindtheproduct.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Product-specific job boards & communities",
+    "name": "Product Manager HQ",
+    "org": "PM Slack community + job board",
+    "pay": "paid",
+    "blurb": "One of the biggest PM Slack communities with a robust job board ($25 lifetime). Good for referrals and roles shared peer-to-peer.",
+    "tags": [
+      "PM",
+      "Slack",
+      "Referrals"
+    ],
+    "links": [
+      {
+        "l": "Community",
+        "u": "https://www.productmanagerhq.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Career coaches & done-for-you services (paid)",
+    "name": "Dr. Nancy Li",
+    "org": "PM Accelerator (India→US PM focus)",
+    "pay": "paid",
+    "blurb": "Runs one of the largest PM coaching platforms; specializes in helping people (incl. from India) land PM jobs in the US. Portfolio-building, interview prep, referrals, mentors from FAANG. Free training on YouTube to vet her first.",
+    "tags": [
+      "PM",
+      "India→US",
+      "Portfolio + referrals"
+    ],
+    "links": [
+      {
+        "l": "PM Accelerator",
+        "u": "https://www.pmaccelerator.io/"
+      },
+      {
+        "l": "Free YouTube",
+        "u": "https://www.youtube.com/c/drnancyli"
+      }
+    ]
+  },
+  {
+    "cat": "Career coaches & done-for-you services (paid)",
+    "name": "Priyanka (Wanderess Priyanka)",
+    "org": "IT Product Manager in Germany · 390k followers",
+    "pay": "paid",
+    "blurb": "PM at a German automotive company; built a big audience guiding Indians to move to Europe. Offers European-format CV, LinkedIn review, offer/visa-process guidance and a Germany/Europe career bootcamp via Topmate.",
+    "tags": [
+      "Germany/Europe",
+      "PM",
+      "CV + visa"
+    ],
+    "links": [
+      {
+        "l": "Topmate services",
+        "u": "https://topmate.io/wanderess_priyanka"
+      }
+    ]
+  },
+  {
+    "cat": "Career coaches & done-for-you services (paid)",
+    "name": "Coach Sandeep Khaira",
+    "org": "'Get Hired Abroad' program",
+    "pay": "paid",
+    "blurb": "Structured 15–30 week programs explicitly targeting visa-sponsor companies (lists PM as a supported track). Includes CV/LinkedIn, EU companies list, interview + salary-negotiation coaching. Transparent INR pricing.",
+    "tags": [
+      "Visa-sponsor focus",
+      "EU",
+      "PM track"
+    ],
+    "links": [
+      {
+        "l": "Get Hired Abroad",
+        "u": "https://coachsandeepkhaira.com/get-hired-abroad/"
+      }
+    ]
+  },
+  {
+    "cat": "Career coaches & done-for-you services (paid)",
+    "name": "PrimePathway",
+    "org": "Done-for-you job search (India-based)",
+    "pay": "paid",
+    "blurb": "'We run your job search' — branding, applications, recruiter connects, interview prep across US/UK/EU + remote-first roles. You show up for interviews. Vet their track record before committing.",
+    "tags": [
+      "Done-for-you",
+      "US/UK/EU",
+      "Remote"
+    ],
+    "links": [
+      {
+        "l": "Website",
+        "u": "https://www.primepathway.in/"
+      }
+    ]
+  },
+  {
+    "cat": "Recruiting + relocation agencies",
+    "name": "Dhi ADT",
+    "org": "Talent mobility India→NL/DE/UK (recognised sponsor)",
+    "pay": "free",
+    "blurb": "Recognised visa sponsor in the Netherlands with India→NL/DE/UK relocation ops: IND filing, Blue Card, UK Skilled Worker, housing, registration. Most India→NL moves done in 6–10 weeks. Employer-funded, not candidate-paid.",
+    "tags": [
+      "India→NL/DE/UK",
+      "Recognised sponsor",
+      "End-to-end"
+    ],
+    "links": [
+      {
+        "l": "Talent mobility",
+        "u": "https://www.adtsolution.com/talent-mobility-services"
+      }
+    ]
+  },
+  {
+    "cat": "Recruiting + relocation agencies",
+    "name": "Talcom Relocation",
+    "org": "Netherlands tech hiring + relocation",
+    "pay": "free",
+    "blurb": "NL agency handling visas, housing and settlement for international tech hires. Good route into the Amsterdam ecosystem.",
+    "tags": [
+      "Netherlands",
+      "Relocation"
+    ],
+    "links": [
+      {
+        "l": "Relocation",
+        "u": "https://www.talcom.nl/relocation"
+      }
+    ]
+  },
+  {
+    "cat": "Recruiting + relocation agencies",
+    "name": "Transparent Hiring",
+    "org": "International IT/Product talent → Germany",
+    "pay": "free",
+    "blurb": "Sources, relocates and integrates global talent into German companies; typically start within ~6 weeks of signing. Software & Product focus.",
+    "tags": [
+      "Germany",
+      "Software/Product",
+      "Relocation"
+    ],
+    "links": [
+      {
+        "l": "Services",
+        "u": "https://www.transparent-hiring.com/"
+      }
+    ]
+  },
+  {
+    "cat": "Recruiting + relocation agencies",
+    "name": "Europe Careers",
+    "org": "Germany EU Blue Card / Skilled Worker",
+    "pay": "paid",
+    "blurb": "Helps experienced professionals secure direct German employment + Blue Card; rebuilds profile to German standards, targets employers in their network, handles the visa filing. (Charges for service — vet first.)",
+    "tags": [
+      "Germany",
+      "Blue Card",
+      "Profile + visa"
+    ],
+    "links": [
+      {
+        "l": "Skilled migration",
+        "u": "https://europecareers.de/skilled-migration/"
+      }
+    ]
+  },
+  {
+    "cat": "Recruiting + relocation agencies",
+    "name": "Fachkraft Ausland",
+    "org": "Recruitment & relocation to Germany",
+    "pay": "free",
+    "blurb": "Places vetted internationals with German employers and walks you through jobs, visa (Blue Card/Chancenkarte), bureaucracy and relocation. States zero hidden fees for candidates.",
+    "tags": [
+      "Germany",
+      "Visa + relocation"
+    ],
+    "links": [
+      {
+        "l": "Website",
+        "u": "https://fachkraft-ausland.de/"
+      }
+    ]
+  }
+]

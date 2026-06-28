@@ -1,0 +1,44 @@
+name: Daily site refresh
+
+on:
+  schedule:
+    # 6:00 AM IST = 00:30 UTC
+    - cron: "30 0 * * *"
+  workflow_dispatch: # manual "Run workflow" button in GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run daily refresh
+        run: python scripts/refresh.py
+
+      - name: Commit updated data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Daily refresh ${{ github.run_number }}"
+          file_pattern: "data/* jobs.csv"
+          skip_fetch: false
+
+      # Netlify auto-deploys when this repo is linked to your site (see SETUP-DAILY-REFRESH.md).
+      # Optional: add NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID secrets to deploy from Actions instead.
+      - name: Deploy to Netlify (optional)
+        if: ${{ vars.USE_NETLIFY_CLI_DEPLOY == 'true' }}
+        run: npx netlify-cli deploy --prod --dir=.
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
