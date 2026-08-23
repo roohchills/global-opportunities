@@ -216,15 +216,22 @@ let META = {};
 
 async function loadData(){
   const cacheBust = new Date().toISOString().slice(0,10);
-  const [metaRes, jobsRes, helpersRes] = await Promise.all([
-    fetch(`/data/meta.json?t=${cacheBust}`),
-    fetch(`/data/jobs.json?t=${cacheBust}`),
-    fetch(`/data/helpers.json?t=${cacheBust}`)
-  ]);
-  if(!metaRes.ok || !jobsRes.ok || !helpersRes.ok) throw new Error("Failed to load data files");
-  META = await metaRes.json();
-  JOBS = await jobsRes.json();
-  HELPERS = await helpersRes.json();
+  const bases = [
+    "https://raw.githubusercontent.com/roohchills/global-opportunities/main/data",
+    `/data`
+  ];
+  async function fetchJson(name){
+    for (const base of bases){
+      try {
+        const r = await fetch(base + "/" + name + "?t=" + cacheBust);
+        if (r.ok) return r.json();
+      } catch(e) {}
+    }
+    throw new Error("Failed to load " + name);
+  }
+  META = await fetchJson("meta.json");
+  JOBS = await fetchJson("jobs.json");
+  HELPERS = await fetchJson("helpers.json");
   const el = document.getElementById("lastRefreshed");
   if(META.lastRefreshed){
     const d = new Date(META.lastRefreshed);
