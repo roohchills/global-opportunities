@@ -242,7 +242,7 @@ async function loadData(){
 }
 
 // ---- STATE & RENDER -----------------------------------------------------
-const state = { q:"", type:"All", region:"All", visa:"All", sort:"region" };
+const state = { q:"", type:"All", region:"All", visa:"All", sort:"region", newOnly:false };
 const VISA_LABEL = {sponsors:"✅ Sponsors visa", likely:"🟡 Likely / check", check:"🔎 Confirm w/ company", eu:"⛔ EU permit needed"};
 const VISA_CLASS = {sponsors:"sponsors", likely:"likely", check:"check", eu:"eu"};
 const REGION_ORDER = {London:0, Europe:1, US:2, Dubai:3, Remote:4};
@@ -299,6 +299,7 @@ function render(){
     if(state.type!=="All" && j.type!==state.type) return false;
     if(state.region!=="All" && j.region!==state.region) return false;
     if(state.visa!=="All" && j.visa!==state.visa) return false;
+    if(state.newOnly && !j.isNewToday && !j.autoDiscovered) return false;
     if(state.q){
       const hay = (j.co+" "+j.role+" "+j.city+" "+j.note+" "+j.type).toLowerCase();
       if(!hay.includes(state.q.toLowerCase())) return false;
@@ -306,10 +307,11 @@ function render(){
     return true;
   });
   rows.sort((a,b)=>{
+    const n=(x)=> (x.isNewToday||x.autoDiscovered)?0:1;
     if(state.sort==="company") return a.co.localeCompare(b.co);
     if(state.sort==="type") return a.type.localeCompare(b.type)||a.co.localeCompare(b.co);
     if(state.sort==="visa"){const o={sponsors:0,likely:1,check:2,eu:3};return o[a.visa]-o[b.visa]||a.co.localeCompare(b.co);}
-    return (REGION_ORDER[a.region]-REGION_ORDER[b.region])||a.co.localeCompare(b.co);
+    return n(a)-n(b)||(REGION_ORDER[a.region]-REGION_ORDER[b.region])||a.co.localeCompare(b.co);
   });
 
   document.getElementById("count").textContent = rows.length+" of "+JOBS.length+" roles";
@@ -331,7 +333,9 @@ function render(){
         <span class="badge">📍 ${j.city}</span>
         ${j.salary?`<span class="badge">💰 ${j.salary}</span>`:""}
         ${j.linkStatus==="stale"?`<span class="badge" style="color:var(--red)">⚠️ Link may be stale</span>`:""}
-        ${j.autoDiscovered?`<span class="badge" style="color:var(--green)">✨ New today</span>`:""}
+        ${(j.isNewToday||j.autoDiscovered)?`<span class="badge" style="color:var(--green)">✨ New today</span>`:""}
+        ${j.source&&!j.curated?`<span class="badge" style="color:#bcd0ff">📡 ${j.source}</span>`:""}
+        ${j.curated?`<span class="badge">⭐ Curated</span>`:""}
       </div>
       <div class="role" style="font-size:12.5px">${j.note}</div>
       ${j.contact?`<div class="contact"><span class="lab">Known contact</span><br/>${j.contact}</div>`:""}
@@ -351,8 +355,12 @@ function buildControls(){
   const byRegion = {};
   JOBS.forEach(j=>byRegion[j.region]=(byRegion[j.region]||0)+1);
   const sponsorN = JOBS.filter(j=>j.visa==="sponsors").length;
+  const newN = JOBS.filter(j=>j.isNewToday||j.autoDiscovered).length;
+  const discN = JOBS.filter(j=>!j.curated).length;
   document.getElementById("stats").innerHTML =
     `<div class="stat"><b>${JOBS.length}</b><span>Total roles</span></div>
+     <div class="stat"><b>${newN}</b><span>New / discovered today</span></div>
+     <div class="stat"><b>${discN}</b><span>Live postings found</span></div>
      <div class="stat"><b>${sponsorN}</b><span>Confirmed visa sponsors</span></div>
      <div class="stat"><b>${byRegion.London||0}</b><span>London</span></div>
      <div class="stat"><b>${byRegion.Europe||0}</b><span>Scenic Europe</span></div>
@@ -362,10 +370,19 @@ function buildControls(){
 
   // type segmented
   const seg = document.getElementById("typeSeg");
-  ["All","Product","Ops","Founding"].forEach(t=>{
+  seg.innerHTML = "";
+  [["All","All"],["Product","Product"],["Ops","Ops"],["Founding","Founding"],["new","✨ New today"]].forEach(([id,label])=>{
     const el=document.createElement("div");
-    el.className="chip"+(state.type===t?" active":"");
-    el.textContent=t; el.onclick=()=>{state.type=t; [...seg.children].forEach(c=>c.classList.remove("active")); el.classList.add("active"); render();};
+    const active = id==="new" ? state.newOnly : (state.type===id && !state.newOnly);
+    el.className="chip"+(active?" active":"");
+    el.textContent=label;
+    el.onclick=()=>{
+      if(id==="new"){ state.newOnly=!state.newOnly; state.type="All"; }
+      else { state.type=id; state.newOnly=false; }
+      [...seg.children].forEach(c=>c.classList.remove("active"));
+      el.classList.add("active");
+      render();
+    };
     seg.appendChild(el);
   });
 
