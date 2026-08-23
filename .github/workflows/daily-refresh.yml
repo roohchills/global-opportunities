@@ -34,11 +34,14 @@ jobs:
           file_pattern: "data/* jobs.csv"
           skip_fetch: false
 
-      # Netlify auto-deploys when this repo is linked to your site (see SETUP-DAILY-REFRESH.md).
-      # Optional: add NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID secrets to deploy from Actions instead.
-      - name: Deploy to Netlify (optional)
-        if: ${{ vars.USE_NETLIFY_CLI_DEPLOY == 'true' }}
-        run: npx netlify-cli deploy --prod --dir=.
+      # GitHub Action commits don't always trigger Netlify auto-deploy — ping build hook instead.
+      - name: Trigger Netlify rebuild
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$NETLIFY_BUILD_HOOK" ]; then
+            echo "⚠️ NETLIFY_BUILD_HOOK secret not set — add it in GitHub repo Settings → Secrets"
+            exit 0
+          fi
+          curl -fsS -X POST -d {} "$NETLIFY_BUILD_HOOK"
+          echo "Netlify rebuild triggered"
